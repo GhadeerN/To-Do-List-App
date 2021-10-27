@@ -1,7 +1,8 @@
-package com.satr.todolist
+package com.satr.todolist.views
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.satr.todolist.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
