@@ -2,4 +2,9 @@
     <string name="app_name">To Do List</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_hint_editText">Title</string>
+    <string name="label">Add details</string>
+    <string name="due_date_edit_text_label">Add date/time</string>
+    <string name="add_todo_btn">Add Todo</string>
+    <string name="cancel_btn">Cancel</string>
 </resources>
