@@ -22,10 +22,6 @@ class CompletedListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val addFloatButton: FloatingActionButton = view.findViewById(R.id.add_floatingButton)
-        addFloatButton.setOnClickListener {
-                val sheetButton = ModalSheetBottomFragment()
-                sheetButton.show(requireActivity().supportFragmentManager, "sheetButton")
-        }
+
     }
 }

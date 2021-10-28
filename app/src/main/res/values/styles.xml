@@ -1,0 +1,6 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.App" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <item name="colorPrimary">@color/main_primary_color</item>
+        <item name="colorOnPrimary">@color/white</item>
+    </style>
+</resources>

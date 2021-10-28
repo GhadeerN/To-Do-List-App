@@ -2,9 +2,13 @@
     <string name="app_name">To Do List</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_hint_editText">Title</string>
-    <string name="label">Add details</string>
-    <string name="due_date_edit_text_label">Add date/time</string>
+    <string name="title_hint_editText">New Task</string>
+    <string name="label">Add details (optional)</string>
+    <string name="due_date_edit_text_label">Add date/time (optional)</string>
     <string name="add_todo_btn">Add Todo</string>
     <string name="cancel_btn">Cancel</string>
+    <string name="mark_as_completed_btn">Mark as Completed</string>
+    <string name="completed_text">Completed (%d)</string>
+    <string name="task_bar_details">Details</string>
+    <string name="task_bar_todo_list">To Do List</string>
 </resources>

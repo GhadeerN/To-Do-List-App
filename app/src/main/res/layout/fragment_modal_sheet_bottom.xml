@@ -5,13 +5,21 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:drawable/screen_background_light_transparent"
+    android:background="@android:color/transparent"
     android:orientation="vertical"
     android:paddingLeft="20dp"
-    android:paddingTop="45dp"
+    android:paddingTop="25dp"
     android:paddingRight="20dp"
-    android:paddingBottom="20dp"
+    android:paddingBottom="30dp"
+    app:layout_behavior="@string/bottom_sheet_behavior"
     tools:context=".views.ModalSheetBottomFragment">
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:src="@drawable/ic_rectangel" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/title_editText"
@@ -99,6 +107,7 @@
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:text="@string/cancel_btn"
         android:textColor="@color/primary_color" />
 

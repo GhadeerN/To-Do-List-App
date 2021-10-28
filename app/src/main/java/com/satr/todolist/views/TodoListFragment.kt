@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.satr.todolist.R
 
 class TodoListFragment : Fragment() {
@@ -19,8 +20,11 @@ class TodoListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val sheet = ModalSheetBottomFragment()
-        sheet.show(requireActivity().supportFragmentManager,"")
+        val addFloatButton: FloatingActionButton = view.findViewById(R.id.add_floatingButton)
+        addFloatButton.setOnClickListener {
+            val sheetButton = ModalSheetBottomFragment()
+            sheetButton.show(requireActivity().supportFragmentManager, "sheetButton")
+        }
     }
 
 }
