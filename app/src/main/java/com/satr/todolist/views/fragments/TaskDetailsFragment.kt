@@ -1,4 +1,4 @@
-package com.satr.todolist.views
+package com.satr.todolist.views.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

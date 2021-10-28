@@ -12,7 +12,7 @@
     android:paddingRight="20dp"
     android:paddingBottom="30dp"
     app:layout_behavior="@string/bottom_sheet_behavior"
-    tools:context=".views.ModalSheetBottomFragment">
+    tools:context=".views.fragments.ModalSheetBottomFragment">
 
     <ImageView
         android:id="@+id/imageView5"
