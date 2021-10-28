@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -35,7 +36,11 @@ class ModalSheetBottomFragment : BottomSheetDialogFragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val dateEditText: TextInputEditText = view.findViewById(R.id.details_editText2)
+        val titleEditText: TextInputEditText = view.findViewById(R.id.title_editText_input)
+        val detailsEditText: TextInputEditText = view.findViewById(R.id.details_editText)
+        val dateEditText: TextInputEditText = view.findViewById(R.id.date_editText)
+        val addButton: Button = view.findViewById(R.id.add_todo_Button)
+        val cancelButton: Button = view.findViewById(R.id.cancel_Button)
         // Show the date picker in Focus action
         // To customize the calender colors: https://stackoverflow.com/questions/66958999/how-to-change-the-material-date-time-picker-background-color-in-android
         val datePicker =
@@ -64,7 +69,6 @@ class ModalSheetBottomFragment : BottomSheetDialogFragment() {
         // The pattern letters means: E -> day name, L -> Month name, d -> day of month number, y -> the year
         // Resource: https://developer.android.com/reference/kotlin/java/time/format/DateTimeFormatter
         // TODO L don't show the month name, it shows only a number!
-        // TODO you still need to add time picker somehow girl!
         return dateTime.format(DateTimeFormatter.ofPattern("E, L d, y"))
     }
 }

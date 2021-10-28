@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="primary_color">#3F51B5</color>
     <color name="main_primary_color">#303F9F</color>
+    <color name="past_status_text">#ED847E</color>
 </resources>

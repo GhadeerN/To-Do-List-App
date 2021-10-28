@@ -87,7 +87,7 @@
             android:hint="@string/due_date_edit_text_label">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/details_editText2"
+                android:id="@+id/date_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -95,7 +95,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/containedButton"
+        android:id="@+id/add_todo_Button"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:backgroundTint="@color/primary_color"
@@ -103,7 +103,7 @@
         android:textColor="@color/white" />
 
     <Button
-        android:id="@+id/textButton"
+        android:id="@+id/cancel_Button"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

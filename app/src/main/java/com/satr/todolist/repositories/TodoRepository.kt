@@ -7,14 +7,16 @@ import com.satr.todolist.database.model.TodoDataModel
 import java.lang.Exception
 
 private const val DATABASE_NAME = "todo-list-database"
-class TodoRepository(val context: Context) {
-    val database: TodoDatabase = Room.databaseBuilder(
-        context,
-        TodoDatabase::class.java,
-        DATABASE_NAME
-    ).fallbackToDestructiveMigration().build()
 
-    val totoDao = database.todoDao()
+class TodoRepository(val context: Context) {
+    private val database: TodoDatabase =
+        Room.databaseBuilder(
+            context,
+            TodoDatabase::class.java,
+            DATABASE_NAME
+        ).fallbackToDestructiveMigration().build()
+
+    private val totoDao = database.todoDao()
 
     // Dao functions
     fun getTasks() = totoDao.getTodoTasks()

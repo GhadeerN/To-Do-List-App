@@ -14,7 +14,7 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 
 class TodoViewModel : ViewModel() {
-    val todoRepository = TodoRepository.get()
+    private val todoRepository = TodoRepository.get()
 
     var taskLiveData = MutableLiveData<TodoDataModel>()
 
