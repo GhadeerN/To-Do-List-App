@@ -4,7 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.satr.todolist.database.model.TodoDataModel
 
-@Database(entities = [TodoDataModel::class], version = 1)
+@Database(entities = [TodoDataModel::class], version = 2)
 abstract class TodoDatabase: RoomDatabase() {
     abstract fun todoDao(): TodoDao
 }

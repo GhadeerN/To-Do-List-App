@@ -9,14 +9,18 @@ interface TodoDao {
     @Insert
     suspend fun addTodo(task: TodoDataModel)
 
-    @Query("SELECT * FROM tododatamodel WHERE checked = 'false'")
+    @Query("SELECT * FROM tododatamodel WHERE checked = 0")
     fun getTodoTasks(): LiveData<List<TodoDataModel>>
 
-    @Query("SELECT * FROM tododatamodel WHERE checked = 'true'")
+    @Query("SELECT * FROM tododatamodel WHERE checked = 1")
     fun getCompletedTasks(): LiveData<List<TodoDataModel>>
 
     @Delete
     suspend fun deleteTask(task: TodoDataModel)
+
+    // Test
+    @Query("DELETE FROM tododatamodel")
+    suspend fun deleteAll()
 
     @Update
     suspend fun updateTask(task: TodoDataModel)

@@ -10,4 +10,5 @@
     <color name="primary_color">#3F51B5</color>
     <color name="main_primary_color">#303F9F</color>
     <color name="past_status_text">#ED847E</color>
+    <color name="icons_dark_gray">#374957</color>
 </resources>

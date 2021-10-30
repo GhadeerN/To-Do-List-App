@@ -55,11 +55,17 @@ class TodoViewModel : ViewModel() {
             todoRepository.updateTask(task)
         }
     }
+
+    fun deleteAll() {
+        viewModelScope.launch {
+            todoRepository.deleteAll()
+        }
+    }
 }
 
 // Get current date
 fun getDate(): String {
-    val dateFormat = SimpleDateFormat("dd/M/yyyy")
+    val dateFormat = SimpleDateFormat("E, MMM d, y")
     return dateFormat.format(Date())
 }
 
@@ -69,8 +75,8 @@ fun setTaskStatus(dueDate: String): String {
     val currentDate = getDate()
     // Here I converted the date from string to local date to use date comparisons functions
     // Resource: https://www.ictdemy.com/kotlin/oop/date-and-time-in-kotlin-parsing-and-comparing
-    val localDate = LocalDate.parse(currentDate, DateTimeFormatter.ofPattern("dd/M/yyyy"))
-    val dueDateLocal = LocalDate.parse(dueDate, DateTimeFormatter.ofPattern("dd/M/yyyy"))
+    val localDate = LocalDate.parse(currentDate, DateTimeFormatter.ofPattern("E, MMM d, y"))
+    val dueDateLocal = LocalDate.parse(dueDate, DateTimeFormatter.ofPattern("E, MMM d, y"))
     return when {
         dueDateLocal.isEqual(localDate) -> {
             "Today"

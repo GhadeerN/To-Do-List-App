@@ -7,18 +7,25 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.annotation.RequiresApi
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputEditText
 import com.satr.todolist.R
+import com.satr.todolist.views.TodoViewModel
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
 class ModalSheetBottomFragment : BottomSheetDialogFragment() {
-
+    private val todoViewModel: TodoViewModel by activityViewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Round shape style
@@ -41,6 +48,7 @@ class ModalSheetBottomFragment : BottomSheetDialogFragment() {
         val dateEditText: TextInputEditText = view.findViewById(R.id.date_editText)
         val addButton: Button = view.findViewById(R.id.add_todo_Button)
         val cancelButton: Button = view.findViewById(R.id.cancel_Button)
+
         // Show the date picker in Focus action
         // To customize the calender colors: https://stackoverflow.com/questions/66958999/how-to-change-the-material-date-time-picker-background-color-in-android
         val datePicker =
@@ -48,6 +56,7 @@ class ModalSheetBottomFragment : BottomSheetDialogFragment() {
                 .setTitleText("Select date").setTitleText("Select date").setTheme(R.style.Theme_App)
                 .build()
 
+        // date edit text click event
         dateEditText.setOnFocusChangeListener { view, b ->
             datePicker.show(requireActivity().supportFragmentManager, "datePicker")
             datePicker.addOnPositiveButtonClickListener {
@@ -55,6 +64,20 @@ class ModalSheetBottomFragment : BottomSheetDialogFragment() {
                 dateEditText.setText(dateFormatted(selected))
 
             }
+        }
+
+        // add button click event
+        addButton.setOnClickListener {
+            val title = titleEditText.text.toString()
+            val details = detailsEditText.text.toString()
+            val dueDate = dateEditText.text.toString()
+            todoViewModel.addTask(title, false, details, dueDate)
+            dismiss()
+        }
+
+        // cancel event
+        cancelButton.setOnClickListener {
+            dismiss()
         }
     }
 
@@ -69,6 +92,6 @@ class ModalSheetBottomFragment : BottomSheetDialogFragment() {
         // The pattern letters means: E -> day name, L -> Month name, d -> day of month number, y -> the year
         // Resource: https://developer.android.com/reference/kotlin/java/time/format/DateTimeFormatter
         // TODO L don't show the month name, it shows only a number!
-        return dateTime.format(DateTimeFormatter.ofPattern("E, L d, y"))
+        return dateTime.format(DateTimeFormatter.ofPattern("E, MMM d, y"))
     }
 }
