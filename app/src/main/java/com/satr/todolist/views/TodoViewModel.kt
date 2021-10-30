@@ -5,6 +5,7 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.satr.todolist.database.model.SectionDataModel
 import com.satr.todolist.database.model.TodoDataModel
 import com.satr.todolist.repositories.TodoRepository
 import kotlinx.coroutines.launch
@@ -60,6 +61,26 @@ class TodoViewModel : ViewModel() {
         viewModelScope.launch {
             todoRepository.deleteAll()
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun createSectionData(list: List<TodoDataModel>): MutableList<SectionDataModel> {
+        val newList = mutableListOf<TodoDataModel>()
+        val sectionList = mutableListOf<SectionDataModel>()
+        for (i in list) {
+            val currentStatus = if (i.dueDate.isNotEmpty())
+                setTaskStatus(i.dueDate)
+            else "No due date"
+            i.status = currentStatus
+            newList.add(i)
+        }
+        val s = newList.groupBy { it.status }.toSortedMap()
+        s["Past"]?.let { SectionDataModel("Past", it) }?.let { sectionList.add(it) }
+        s["Today"]?.let { SectionDataModel("Today", it) }?.let { sectionList.add(it) }
+        s["Upcoming Tasks"]?.let { SectionDataModel("Upcoming Tasks", it) }
+            ?.let { sectionList.add(it) }
+        s["No due date"]?.let { SectionDataModel("No due date", it) }?.let { sectionList.add(it) }
+        return sectionList
     }
 }
 

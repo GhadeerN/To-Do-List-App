@@ -27,7 +27,7 @@ class TodoAdapter(val tasks: List<TodoDataModel>, val viewModel: TodoViewModel) 
         val detailsTextView: TextView = view.findViewById(R.id.task_details_textView)
         val dueDateTextView: TextView = view.findViewById(R.id.duedate_textView)
         val checkBox: CheckBox = view.findViewById(R.id.checkBox)
-        val statusTextView: TextView = view.findViewById(R.id.status_textView_element1)
+//        val statusTextView: TextView = view.findViewById(R.id.status_textView_element)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -50,20 +50,22 @@ class TodoAdapter(val tasks: List<TodoDataModel>, val viewModel: TodoViewModel) 
         var noDueDate = 0
 
         val statusWithTasks = groupByStatus(tasks)
-        Log.d("statusAll", statusWithTasks.toString())
-        if (task.status == "Past")
-            holder.statusTextView.setTextColor(Color.RED)
+        val singleTask = statusWithTasks[task.status]
 
-        for (i in statusWithTasks) {
-            holder.statusTextView.text = i.key
-            Log.d("insideLoop", i.toString())
-            for (r in 0 until i.value.size) {
-                holder.titleTextView.text = i.value[r].title
-                holder.detailsTextView.text = i.value[r].details
-                holder.dueDateTextView.text = i.value[r].dueDate
-                holder.checkBox.isChecked = i.value[r].checked
-            }
-        }
+            Log.d("statusSingle", singleTask.toString())
+//        if (task.status == "Past")
+//            holder.statusTextView.setTextColor(Color.RED)
+//
+//        for (i in statusWithTasks) {
+//            // holder.statusTextView.text = i.key
+//            Log.d("insideLoop", i.toString())
+//            for (r in i.value.indices) {
+//                holder.titleTextView.text = i.value[r].title
+//                holder.detailsTextView.text = i.value[r].details
+//                holder.dueDateTextView.text = i.value[r].dueDate
+//                holder.checkBox.isChecked = i.value[r].checked
+//            }
+//        }
 //        val singleStatusWithTask = statusWithTasks[task.status]
 //        Log.d("singleStatus", singleStatusWithTask.toString())
 //        holder.statusTextView.text = task.dueDate?.let { setStatus(it) } ?: "No due date"
