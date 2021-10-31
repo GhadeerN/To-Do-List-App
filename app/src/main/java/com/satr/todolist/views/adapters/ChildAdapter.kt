@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.satr.todolist.R
 import com.satr.todolist.database.model.TodoDataModel
 import com.satr.todolist.databinding.ItemLayoutBinding
+import com.satr.todolist.views.DateFormat
 import com.satr.todolist.views.TodoViewModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -32,7 +33,7 @@ class ChildAdapter(private val list: List<TodoDataModel>, val viewModel: TodoVie
         val task = list[position]
         holder.viewDataBinding.apply {
             taskTitleTextView.text = task.title
-            duedateTextView.text = dueDateCardFormatter(task.dueDate)
+            duedateTextView.text = DateFormat.dueDateCardFormatter(task.dueDate)
             taskDetailsTextView.text = task.details
             checkBox.isChecked = task.checked
         }
@@ -52,12 +53,4 @@ class ChildAdapter(private val list: List<TodoDataModel>, val viewModel: TodoVie
     override fun getItemCount(): Int {
         return list.size
     }
-}
-
-@RequiresApi(Build.VERSION_CODES.O)
-fun dueDateCardFormatter(dueDate: String): String {
-    return if (dueDate.isNotEmpty()) {
-        val localDate = LocalDate.parse(dueDate, DateTimeFormatter.ofPattern("E, MMM d, y"))
-        localDate.format(DateTimeFormatter.ofPattern("MMM d"))
-    } else ""
 }

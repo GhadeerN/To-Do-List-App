@@ -18,6 +18,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.internal.TextWatcherAdapter
 import com.google.android.material.textfield.TextInputEditText
@@ -28,10 +29,12 @@ import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+import kotlin.properties.Delegates
 
+// Flag
+private lateinit var selectedTask: TodoDataModel
 class TaskDetailsFragment : Fragment() {
     private val todoViewModel: TodoViewModel by activityViewModels()
-    private lateinit var selectedTask: TodoDataModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -64,9 +67,12 @@ class TaskDetailsFragment : Fragment() {
                 selectedTask = it
             }
         })
-
+        // Delete task
+        deleteImageButton.setOnClickListener {
+            todoViewModel.deleteTask(selectedTask)
+            findNavController().popBackStack()
+        }
         // Update the values
-        var isFlag = false
         val datePicker =
             MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Select date").setTitleText("Select date").setTheme(R.style.Theme_App)
@@ -78,64 +84,48 @@ class TaskDetailsFragment : Fragment() {
                 dueDateEditText.setText(dateFormatted(selected))
             }
         }
-        var counterForUserChange1 = 0
-        var counterForUserChange2 = 0
-        var counterForUserChange3 = 0
-        titleEditText.addTextChangedListener(object : TextWatcher {
+        var counter1 = 0
+        var counter2 = 0
+        var counter3 = 0
+
+        setOnChangeListener(titleEditText, titleEditText, detailsEditText, dueDateEditText, saveImageButton)
+        setOnChangeListener(detailsEditText, titleEditText, detailsEditText, dueDateEditText, saveImageButton)
+        setOnChangeListener(dueDateEditText, titleEditText, detailsEditText, dueDateEditText, saveImageButton)
+
+    }
+
+    private fun setOnChangeListener(
+        changeIn: EditText,
+        titleEditText: EditText,
+        detailsEditText: EditText,
+        dueDateEditText: EditText,
+        saveImageButton: ImageButton) {
+        var counter1 = 0
+        changeIn.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun afterTextChanged(p0: Editable?) {
-                counterForUserChange1++
-                if (counterForUserChange1 > 1) {
-                    isFlag = true
-                    Log.d("onchange1", isFlag.toString())
+                counter1++
+                // This condition is to omit the textChange from the database filling the edit text
+                if (counter1 > 1) {
                     saveImageButton.setColorFilter(Color.parseColor("#66CC70"))
+                    saveImageButton.setOnClickListener {
+                        Log.d("InsideSave", "It work!")
+                        // TODO don't forget completed button!
+                        val title = titleEditText.text.toString()
+                        val details = detailsEditText.text.toString()
+                        val dueDate = dueDateEditText.text.toString()
+                        selectedTask.title = title
+                        selectedTask.details= details
+                        selectedTask.dueDate = dueDate
+                        todoViewModel.updateTask(
+                            selectedTask
+                        )
+                        findNavController().popBackStack()
+                    }
                 }
             }
         })
-        detailsEditText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun afterTextChanged(p0: Editable?) {
-                counterForUserChange2++
-                if (counterForUserChange2 > 1) {
-                    isFlag = true
-                    Log.d("onchange2", isFlag.toString())
-                    saveImageButton.setColorFilter(Color.parseColor("#66CC70"))
-                }
-            }
-        })
-        dueDateEditText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun afterTextChanged(p0: Editable?) {
-                counterForUserChange3++
-                if (counterForUserChange3 > 1) {
-                    isFlag = true
-                    Log.d("onchange3", isFlag.toString())
-                    saveImageButton.setColorFilter(Color.parseColor("#66CC70"))
-                }
-            }
-        })
-        if (isFlag) {
-            saveImageButton.setOnClickListener {
-                val title = titleEditText.text.toString()
-                val details = detailsEditText.text.toString()
-                val dueDate = dueDateEditText.text.toString()
-                val creationDate = creationDateTextView.text.toString()
-                // TODO don't forget completed button!
-                todoViewModel.updateTask(
-                    TodoDataModel(
-                        title,
-                        creationDate,
-                        false,
-                        details,
-                        dueDate
-                    )
-                )
-            }
-        }
-        isFlag = false
     }
 }
 
@@ -158,3 +148,5 @@ fun changeImageBtnColor(view: ImageButton, counter: Int) {
     if (counter > 1)
         view.setColorFilter(Color.parseColor("#66CC70"))
 }
+
+

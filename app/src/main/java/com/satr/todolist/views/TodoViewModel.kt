@@ -40,7 +40,7 @@ class TodoViewModel : ViewModel() {
 
         viewModelScope.launch {
             todoRepository.addTask(
-                TodoDataModel(title, currentDate, checked, checkedDetails, checkedDueDate, status)
+                TodoDataModel(title, checked, checkedDetails, checkedDueDate, status, currentDate)
             )
         }
     }

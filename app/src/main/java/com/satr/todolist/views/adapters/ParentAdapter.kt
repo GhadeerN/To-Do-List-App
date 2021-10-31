@@ -43,7 +43,6 @@ class ParentAdapter(val list: List<SectionDataModel>, val viewModel: TodoViewMod
         }
 
         holder.viewDataBinding.inparentChildRecycler.apply {
-            Log.d("parent", holder.viewDataBinding.sectionTextView.text.toString())
             adapter = ChildAdapter(section.list, viewModel)
         }
     }
