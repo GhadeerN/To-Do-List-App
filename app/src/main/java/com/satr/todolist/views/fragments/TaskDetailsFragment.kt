@@ -2,6 +2,7 @@ package com.satr.todolist.views.fragments
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.graphics.Paint
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -11,6 +12,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
@@ -33,6 +35,7 @@ import kotlin.properties.Delegates
 
 // Flag
 private lateinit var selectedTask: TodoDataModel
+
 class TaskDetailsFragment : Fragment() {
     private val todoViewModel: TodoViewModel by activityViewModels()
     override fun onCreateView(
@@ -56,6 +59,8 @@ class TaskDetailsFragment : Fragment() {
             view.findViewById(R.id.details_creation_date_textView)
         val deleteImageButton: ImageButton = view.findViewById(R.id.delete_imageButton)
         val saveImageButton: ImageButton = view.findViewById(R.id.save_imageButton)
+        val markCompletedButton: Button = view.findViewById(R.id.mark_as_completed_Button)
+        val markUncompletedButton: Button = view.findViewById(R.id.uncompleted_Button)
 
         // Set the data inside the edit text
         todoViewModel.taskLiveData.observe(viewLifecycleOwner, Observer {
@@ -63,10 +68,34 @@ class TaskDetailsFragment : Fragment() {
                 titleEditText.setText(it.title)
                 detailsEditText.setText(it.details)
                 dueDateEditText.setText(it.dueDate)
+
                 creationDateTextView.text = "Created at ${it.creationDate}"
                 selectedTask = it
+                //If the task is completed -> stock on the title and hide mark completed button
+                if (selectedTask.checked) {
+                    titleEditText.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                    markCompletedButton.visibility = View.GONE
+                    markUncompletedButton.visibility = View.VISIBLE
+
+                    dueDateEditText.apply {
+                        keyListener = null
+                        setTextColor(Color.GRAY)
+                        isClickable = false
+                        setEnabled(false);
+                    }
+                    titleEditText.apply {
+                        keyListener = null
+                        setTextColor(Color.GRAY)
+                    }
+                    detailsEditText.apply {
+                        keyListener = null
+                        setTextColor(Color.GRAY)
+                    }
+                }
             }
         })
+
+
         // Delete task
         deleteImageButton.setOnClickListener {
             todoViewModel.deleteTask(selectedTask)
@@ -75,22 +104,51 @@ class TaskDetailsFragment : Fragment() {
         // Update the values
         val datePicker =
             MaterialDatePicker.Builder.datePicker()
-                .setTitleText("Select date").setTitleText("Select date").setTheme(R.style.Theme_App)
+                .setTitleText("Select date").setTheme(R.style.Theme_App)
                 .build()
-        dueDateEditText.setOnFocusChangeListener { view, b ->
+        dueDateEditText.setOnClickListener {
             datePicker.show(requireActivity().supportFragmentManager, "datePicker")
             datePicker.addOnPositiveButtonClickListener {
                 val selected = datePicker.selection
                 dueDateEditText.setText(dateFormatted(selected))
             }
         }
-        var counter1 = 0
-        var counter2 = 0
-        var counter3 = 0
 
-        setOnChangeListener(titleEditText, titleEditText, detailsEditText, dueDateEditText, saveImageButton)
-        setOnChangeListener(detailsEditText, titleEditText, detailsEditText, dueDateEditText, saveImageButton)
-        setOnChangeListener(dueDateEditText, titleEditText, detailsEditText, dueDateEditText, saveImageButton)
+        // Mark completed button functionality
+        markCompletedButton.setOnClickListener {
+            selectedTask.checked = true
+            todoViewModel.updateTask(selectedTask)
+            findNavController().popBackStack()
+        }
+
+        // Uncompleted button
+        markUncompletedButton.setOnClickListener {
+            selectedTask.checked = false
+            todoViewModel.updateTask(selectedTask)
+            findNavController().popBackStack()
+        }
+
+        setOnChangeListener(
+            titleEditText,
+            titleEditText,
+            detailsEditText,
+            dueDateEditText,
+            saveImageButton
+        )
+        setOnChangeListener(
+            detailsEditText,
+            titleEditText,
+            detailsEditText,
+            dueDateEditText,
+            saveImageButton
+        )
+        setOnChangeListener(
+            dueDateEditText,
+            titleEditText,
+            detailsEditText,
+            dueDateEditText,
+            saveImageButton
+        )
 
     }
 
@@ -99,7 +157,8 @@ class TaskDetailsFragment : Fragment() {
         titleEditText: EditText,
         detailsEditText: EditText,
         dueDateEditText: EditText,
-        saveImageButton: ImageButton) {
+        saveImageButton: ImageButton
+    ) {
         var counter1 = 0
         changeIn.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -116,7 +175,7 @@ class TaskDetailsFragment : Fragment() {
                         val details = detailsEditText.text.toString()
                         val dueDate = dueDateEditText.text.toString()
                         selectedTask.title = title
-                        selectedTask.details= details
+                        selectedTask.details = details
                         selectedTask.dueDate = dueDate
                         todoViewModel.updateTask(
                             selectedTask

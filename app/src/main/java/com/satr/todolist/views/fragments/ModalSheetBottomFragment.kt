@@ -1,11 +1,15 @@
 package com.satr.todolist.views.fragments
 
+import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.DialogFragment
@@ -40,6 +44,7 @@ class ModalSheetBottomFragment : BottomSheetDialogFragment() {
         return inflater.inflate(R.layout.fragment_modal_sheet_bottom, container, false)
     }
 
+    @SuppressLint("ResourceAsColor")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -58,6 +63,7 @@ class ModalSheetBottomFragment : BottomSheetDialogFragment() {
 
         // date edit text click event
         dateEditText.setOnFocusChangeListener { view, b ->
+            Log.d("ModalIsProblem", "Here we gooooo")
             datePicker.show(requireActivity().supportFragmentManager, "datePicker")
             datePicker.addOnPositiveButtonClickListener {
                 val selected = datePicker.selection
@@ -67,12 +73,28 @@ class ModalSheetBottomFragment : BottomSheetDialogFragment() {
         }
 
         // add button click event
+//        addButton.apply {
+//            isEnabled = false
+//            setTextColor(Color.GRAY)
+//            setBackgroundColor(Color.WHITE)
+//        }
+//        if (titleEditText.text.toString().isNotEmpty()) {
+//            addButton.apply {
+//                isEnabled = true
+//                setTextColor(Color.WHITE)
+//                setBackgroundColor(R.color.main_primary_color)
+//            }
+//        }
+
         addButton.setOnClickListener {
             val title = titleEditText.text.toString()
-            val details = detailsEditText.text.toString()
-            val dueDate = dateEditText.text.toString()
-            todoViewModel.addTask(title, false, details, dueDate)
-            dismiss()
+            if(title.isNotEmpty()) {
+                val details = detailsEditText.text.toString()
+                val dueDate = dateEditText.text.toString()
+                todoViewModel.addTask(title, false, details, dueDate)
+                dismiss()
+            } else
+                Toast.makeText(requireContext(), "Please write your new task to add it", Toast.LENGTH_SHORT).show()
         }
 
         // cancel event

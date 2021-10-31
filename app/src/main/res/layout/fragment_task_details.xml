@@ -121,7 +121,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@android:color/transparent"
+                android:editable="false"
                 android:ems="10"
+                android:focusable="false"
                 android:inputType="textPersonName"
                 android:text="Sun, Oct 23, 2021" />
 
@@ -143,6 +145,22 @@
         android:layout_marginTop="75dp"
         android:text="@string/mark_as_completed_btn"
         android:textColor="@color/primary_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintVertical_bias="0.913" />
+
+    <Button
+        android:id="@+id/uncompleted_Button"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="75dp"
+        android:text="@string/mark_uncompleted"
+        android:textColor="@color/primary_color"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

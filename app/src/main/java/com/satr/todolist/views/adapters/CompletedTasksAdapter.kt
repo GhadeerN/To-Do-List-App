@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.satr.todolist.R
 import com.satr.todolist.database.model.TodoDataModel
@@ -50,6 +51,13 @@ class CompletedTasksAdapter(private val completed: List<TodoDataModel>, val view
         holder.checkBox.setOnClickListener {
             task.checked = holder.checkBox.isChecked
             viewModel.updateTask(task)
+        }
+
+        // Clicks on card -> go to details fragment
+        holder.itemView.setOnClickListener {
+            // Send data to the details fragment
+            viewModel.taskLiveData.postValue(task)
+            it.findNavController().navigate(R.id.action_todoListFragment_to_taskDetailsFragment2)
         }
     }
 

@@ -11,4 +11,5 @@
     <string name="completed_text">Completed (%d)</string>
     <string name="task_bar_details">Details</string>
     <string name="task_bar_todo_list">To Do List</string>
+    <string name="mark_uncompleted">Mark uncompleted</string>
 </resources>
