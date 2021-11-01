@@ -63,7 +63,6 @@ class ModalSheetBottomFragment : BottomSheetDialogFragment() {
 
         // date edit text click event
         dateEditText.setOnFocusChangeListener { view, b ->
-            Log.d("ModalIsProblem", "Here we gooooo")
             datePicker.show(requireActivity().supportFragmentManager, "datePicker")
             datePicker.addOnPositiveButtonClickListener {
                 val selected = datePicker.selection

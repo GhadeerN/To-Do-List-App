@@ -1,6 +1,7 @@
 package com.satr.todolist.views
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -80,6 +81,7 @@ class TodoViewModel : ViewModel() {
         s["Upcoming Tasks"]?.let { SectionDataModel("Upcoming Tasks", it) }
             ?.let { sectionList.add(it) }
         s["No due date"]?.let { SectionDataModel("No due date", it) }?.let { sectionList.add(it) }
+        Log.d("sectionList", sectionList.toString())
         return sectionList
     }
 }

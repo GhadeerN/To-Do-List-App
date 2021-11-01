@@ -13,7 +13,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.satr.todolist.R
 import com.satr.todolist.database.model.TodoDataModel
-import com.satr.todolist.views.DateFormat
+import com.satr.todolist.views.objects.DateFormat
 import com.satr.todolist.views.TodoViewModel
 
 // This adapter is for completed tasks recycler view

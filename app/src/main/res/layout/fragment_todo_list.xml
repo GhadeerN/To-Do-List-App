@@ -17,6 +17,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -30,10 +31,11 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/main_recyclerView"
-                    tools:listitem="@layout/status_section_recycler"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/status_section_recycler">
 
                 </androidx.recyclerview.widget.RecyclerView>
 
@@ -43,6 +45,7 @@
                     android:layout_height="1dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="20dp"
+                    android:layout_weight="1"
                     android:background="?android:attr/listDivider"
                     android:visibility="gone" />
 
@@ -79,6 +82,52 @@
             app:backgroundTint="@color/primary_color"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageView
+            android:id="@+id/start_imageView"
+            android:layout_width="238dp"
+            android:layout_height="223dp"
+            android:layout_marginStart="86dp"
+            android:layout_marginTop="98dp"
+            android:layout_marginEnd="87dp"
+            android:src="@drawable/rafiki"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="gone" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="138dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="140dp"
+            android:text="A fresh start"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/start_imageView"
+            tools:visibility="gone" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="115dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="116dp"
+            android:layout_marginBottom="175dp"
+            android:text="Anything to add?"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintVertical_bias="0.0"
+            tools:visibility="gone" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

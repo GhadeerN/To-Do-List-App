@@ -9,10 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.satr.todolist.R
 import com.satr.todolist.database.model.TodoDataModel
 import com.satr.todolist.databinding.ItemLayoutBinding
-import com.satr.todolist.views.DateFormat
+import com.satr.todolist.views.objects.DateFormat
 import com.satr.todolist.views.TodoViewModel
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 class ChildAdapter(private val list: List<TodoDataModel>, val viewModel: TodoViewModel) :
     RecyclerView.Adapter<ChildAdapter.ViewHolder>() {
