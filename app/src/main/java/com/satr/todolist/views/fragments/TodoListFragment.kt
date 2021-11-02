@@ -57,7 +57,7 @@ class TodoListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // TODO delete this line after you finish
-//  todoViewModel.deleteAll()
+ //todoViewModel.deleteAll()
         val addFloatButton: FloatingActionButton = view.findViewById(R.id.add_floatingButton)
         val completedTasksRecyclerView: RecyclerView =
             view.findViewById(R.id.completed_tasks_recyclerView)
@@ -186,8 +186,8 @@ class TodoListFragment : Fragment() {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = "getString(R.string.channel_name)"
-            val descriptionText = "getString(R.string.channel_description)"
+            val name = "notificationChannel"
+            val descriptionText = "due date notification channel"
             val importance = NotificationManager.IMPORTANCE_DEFAULT
             val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
                 description = descriptionText

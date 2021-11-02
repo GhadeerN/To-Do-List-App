@@ -76,7 +76,7 @@ class TodoViewModel : ViewModel() {
             newList.add(i)
         }
         val s = newList.groupBy { it.status }.toSortedMap()
-        s["Past"]?.let { SectionDataModel("Past", it) }?.let { sectionList.add(it) }
+        s["Overdue"]?.let { SectionDataModel("Overdue", it) }?.let { sectionList.add(it) }
         s["Today"]?.let { SectionDataModel("Today", it) }?.let { sectionList.add(it) }
         s["Upcoming Tasks"]?.let { SectionDataModel("Upcoming Tasks", it) }
             ?.let { sectionList.add(it) }
@@ -105,7 +105,7 @@ fun setTaskStatus(dueDate: String): String {
             "Today"
         }
         dueDateLocal.isBefore(localDate) -> {
-            "Past"
+            "Overdue"
         }
         dueDateLocal.isAfter(localDate) -> "Upcoming Tasks"
         else -> "No due date"

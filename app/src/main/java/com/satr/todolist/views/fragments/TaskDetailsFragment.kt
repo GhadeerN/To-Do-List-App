@@ -169,8 +169,6 @@ class TaskDetailsFragment : Fragment() {
                 if (counter1 > 1) {
                     saveImageButton.setColorFilter(Color.parseColor("#66CC70"))
                     saveImageButton.setOnClickListener {
-                        Log.d("InsideSave", "It work!")
-                        // TODO don't forget completed button!
                         val title = titleEditText.text.toString()
                         val details = detailsEditText.text.toString()
                         val dueDate = dueDateEditText.text.toString()
