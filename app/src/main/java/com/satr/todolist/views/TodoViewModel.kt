@@ -27,8 +27,8 @@ class TodoViewModel : ViewModel() {
     fun addTask(title: String, checked: Boolean, details: String?, dueDate: String?) {
         // Take the task creation date
         val currentDate = getDate()
+
         // Check the optional fields values
-        // TODO maybe you don't need all this, check on run please!
         val checkedDetails = if (details.isNullOrEmpty())
             ""
         else details
@@ -55,12 +55,6 @@ class TodoViewModel : ViewModel() {
     fun updateTask(task: TodoDataModel) {
         viewModelScope.launch {
             todoRepository.updateTask(task)
-        }
-    }
-
-    fun deleteAll() {
-        viewModelScope.launch {
-            todoRepository.deleteAll()
         }
     }
 

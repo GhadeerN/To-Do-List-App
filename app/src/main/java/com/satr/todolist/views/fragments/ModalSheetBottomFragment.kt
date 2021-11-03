@@ -25,6 +25,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.satr.todolist.R
 import com.satr.todolist.views.TodoViewModel
+import com.satr.todolist.views.objects.DateFormat
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -34,7 +35,7 @@ class ModalSheetBottomFragment : BottomSheetDialogFragment() {
     private val todoViewModel: TodoViewModel by activityViewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Round shape style
+        // Round shape style (For the card)
         setStyle(DialogFragment.STYLE_NORMAL, R.style.ThemeOverlay_Demo_BottomSheetDialog)
     }
 
@@ -76,9 +77,9 @@ class ModalSheetBottomFragment : BottomSheetDialogFragment() {
             datePicker.show(requireActivity().supportFragmentManager, "datePicker")
             datePicker.addOnPositiveButtonClickListener {
                 val selected = datePicker.selection
+                // Change the visibility for the text field (TextInputLayout)
                 dateLayout.visibility = View.VISIBLE
-                dateEditText.setText(dateFormatted(selected))
-
+                dateEditText.setText(DateFormat.dateFormatted(selected))
             }
         }
 
@@ -86,20 +87,6 @@ class ModalSheetBottomFragment : BottomSheetDialogFragment() {
         descriptionImg.setOnClickListener {
             detailsLayout.visibility = View.VISIBLE
         }
-
-        // add button click event
-//        addButton.apply {
-//            isEnabled = false
-//            setTextColor(Color.GRAY)
-//            setBackgroundColor(Color.WHITE)
-//        }
-//        if (titleEditText.text.toString().isNotEmpty()) {
-//            addButton.apply {
-//                isEnabled = true
-//                setTextColor(Color.WHITE)
-//                setBackgroundColor(R.color.main_primary_color)
-//            }
-//        }
 
         addButton.setOnClickListener {
             val title = titleEditText.text.toString()
@@ -116,19 +103,5 @@ class ModalSheetBottomFragment : BottomSheetDialogFragment() {
         cancelButton.setOnClickListener {
             dismiss()
         }
-    }
-
-    // The following function will format the date selected in the date picker
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun dateFormatted(dateSelected: Long?): String {
-        val dateTime: LocalDateTime =
-            LocalDateTime.ofInstant(
-                dateSelected?.let { Instant.ofEpochMilli(it) },
-                ZoneId.systemDefault()
-            )
-        // The pattern letters means: E -> day name, L -> Month name, d -> day of month number, y -> the year
-        // Resource: https://developer.android.com/reference/kotlin/java/time/format/DateTimeFormatter
-        // TODO L don't show the month name, it shows only a number!
-        return dateTime.format(DateTimeFormatter.ofPattern("E, MMM d, y"))
     }
 }

@@ -27,7 +27,7 @@ class TodoRepository(val context: Context) {
     suspend fun addTask(task: TodoDataModel) = totoDao.addTodo(task)
     suspend fun deleteAll() = totoDao.deleteAll()
 
-    // Companion obj
+    // Companion object
     companion object {
         private var instance: TodoRepository? = null
 

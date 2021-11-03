@@ -12,6 +12,7 @@ import com.satr.todolist.databinding.StatusSectionRecyclerBinding
 import com.satr.todolist.views.TodoViewModel
 
 // SectionDataModel -> section, list of TodoDataModel
+// This adapter is for the main recycler view that contains the section name and the child recycler
 class ParentAdapter(val list: List<SectionDataModel>, val viewModel: TodoViewModel) :
     RecyclerView.Adapter<ParentAdapter.ViewHolder>() {
     // StatusSectionRecyclerBinding -> the data binding of fragment_todo_list.xml
@@ -36,8 +37,9 @@ class ParentAdapter(val list: List<SectionDataModel>, val viewModel: TodoViewMod
         val sectionTextView = holder.viewDataBinding.sectionTextView
 
         sectionTextView.text = list[position].section
+        // Set the section name text color
         when (section.section) {
-            "Overdue" -> sectionTextView.setTextColor(Color.parseColor("#ED847E"))
+            "Overdue" -> sectionTextView.setTextColor(Color.RED)
             "Today" -> sectionTextView.setTextColor(R.color.primary_color)
             "Upcoming Tasks" -> sectionTextView.setTextColor(R.color.main_primary_color)
         }

@@ -4,11 +4,23 @@ import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import com.satr.todolist.database.model.TodoDataModel
-import java.time.Duration
-import java.time.LocalDate
+import java.time.*
 import java.time.format.DateTimeFormatter
 
 object DateFormat {
+    // The following function will format the date selected in the date picker
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun dateFormatted(dateSelected: Long?): String {
+        val dateTime: LocalDateTime =
+            LocalDateTime.ofInstant(
+                dateSelected?.let { Instant.ofEpochMilli(it) },
+                ZoneId.systemDefault()
+            )
+        // The pattern letters means: E -> day name, MMM -> Month name, d -> day of month number, y -> the year
+        // Resource: https://developer.android.com/reference/kotlin/java/time/format/DateTimeFormatter
+        return dateTime.format(DateTimeFormatter.ofPattern("E, MMM d, y"))
+    }
+
     // This function is needed in completedTaskAdapter & ChildAdapter so DRY :)
     @RequiresApi(Build.VERSION_CODES.O)
     fun dueDateCardFormatter(dueDate: String): String {
@@ -37,7 +49,6 @@ object DateFormat {
                 }
             }
         }
-        Log.d("DayBefore", tasks.toString())
         return tasks
     }
 }

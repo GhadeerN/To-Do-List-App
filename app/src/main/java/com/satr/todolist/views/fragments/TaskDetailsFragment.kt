@@ -27,13 +27,13 @@ import com.google.android.material.textfield.TextInputEditText
 import com.satr.todolist.R
 import com.satr.todolist.database.model.TodoDataModel
 import com.satr.todolist.views.TodoViewModel
+import com.satr.todolist.views.objects.DateFormat
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import kotlin.properties.Delegates
 
-// Flag
 private lateinit var selectedTask: TodoDataModel
 
 class TaskDetailsFragment : Fragment() {
@@ -63,7 +63,7 @@ class TaskDetailsFragment : Fragment() {
         val markUncompletedButton: Button = view.findViewById(R.id.uncompleted_Button)
 
         // Set the data inside the edit text
-        todoViewModel.taskLiveData.observe(viewLifecycleOwner, Observer {
+        todoViewModel.taskLiveData.observe(viewLifecycleOwner, {
             it?.let {
                 titleEditText.setText(it.title)
                 detailsEditText.setText(it.details)
@@ -95,7 +95,6 @@ class TaskDetailsFragment : Fragment() {
             }
         })
 
-
         // Delete task
         deleteImageButton.setOnClickListener {
             todoViewModel.deleteTask(selectedTask)
@@ -110,7 +109,7 @@ class TaskDetailsFragment : Fragment() {
             datePicker.show(requireActivity().supportFragmentManager, "datePicker")
             datePicker.addOnPositiveButtonClickListener {
                 val selected = datePicker.selection
-                dueDateEditText.setText(dateFormatted(selected))
+                dueDateEditText.setText(DateFormat.dateFormatted(selected))
             }
         }
 
@@ -152,6 +151,7 @@ class TaskDetailsFragment : Fragment() {
 
     }
 
+    // This function is to set a change listener to each edit text,
     private fun setOnChangeListener(
         changeIn: EditText,
         titleEditText: EditText,
@@ -166,6 +166,7 @@ class TaskDetailsFragment : Fragment() {
             override fun afterTextChanged(p0: Editable?) {
                 counter1++
                 // This condition is to omit the textChange from the database filling the edit text
+                // to only consider the user changes on the edit text
                 if (counter1 > 1) {
                     saveImageButton.setColorFilter(Color.parseColor("#66CC70"))
                     saveImageButton.setOnClickListener {
@@ -184,26 +185,6 @@ class TaskDetailsFragment : Fragment() {
             }
         })
     }
-}
-
-// The following function will format the date selected in the date picker
-@RequiresApi(Build.VERSION_CODES.O)
-fun dateFormatted(dateSelected: Long?): String {
-    val dateTime: LocalDateTime =
-        LocalDateTime.ofInstant(
-            dateSelected?.let { Instant.ofEpochMilli(it) },
-            ZoneId.systemDefault()
-        )
-    // The pattern letters means: E -> day name, L -> Month name, d -> day of month number, y -> the year
-    // Resource: https://developer.android.com/reference/kotlin/java/time/format/DateTimeFormatter
-    // TODO L don't show the month name, it shows only a number!
-    return dateTime.format(DateTimeFormatter.ofPattern("E, MMM d, y"))
-}
-
-// Change the save imageButton color
-fun changeImageBtnColor(view: ImageButton, counter: Int) {
-    if (counter > 1)
-        view.setColorFilter(Color.parseColor("#66CC70"))
 }
 
 

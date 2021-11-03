@@ -29,6 +29,8 @@ class ChildAdapter(private val list: List<TodoDataModel>, val viewModel: TodoVie
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val task = list[position]
+
+        // Setting the data in our item layout components
         holder.viewDataBinding.apply {
             taskTitleTextView.text = task.title
             duedateTextView.text = DateFormat.dueDateCardFormatter(task.dueDate)

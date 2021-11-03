@@ -12,9 +12,8 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
         // To direct the user from Splash screen to the main activity
         val intent = Intent(this, MainActivity::class.java)
-        object: CountDownTimer(1500, 1000) {
-            override fun onTick(p0: Long) {
-            }
+        object : CountDownTimer(1500, 1000) {
+            override fun onTick(p0: Long) {}
 
             override fun onFinish() {
                 startActivity(intent)

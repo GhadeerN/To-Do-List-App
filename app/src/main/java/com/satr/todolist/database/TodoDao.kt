@@ -18,7 +18,7 @@ interface TodoDao {
     @Delete
     suspend fun deleteTask(task: TodoDataModel)
 
-    // Test
+    // This function is for dev seek
     @Query("DELETE FROM tododatamodel")
     suspend fun deleteAll()
 

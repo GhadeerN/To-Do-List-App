@@ -56,55 +56,37 @@ class TodoListFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // TODO delete this line after you finish
- //todoViewModel.deleteAll()
+
         val addFloatButton: FloatingActionButton = view.findViewById(R.id.add_floatingButton)
         val completedTasksRecyclerView: RecyclerView =
             view.findViewById(R.id.completed_tasks_recyclerView)
 
-        // Get the IDs for the start up image and textViews
-        val startUpImg: ImageView = view.findViewById(R.id.start_imageView)
-        val startUpText1: TextView = view.findViewById(R.id.textView)
-        val startUpText2: TextView = view.findViewById(R.id.textView2)
         todoViewModel.getAllTasks.observe(viewLifecycleOwner, {
-//            startUpImg.visibility = View.INVISIBLE
-//            startUpText1.visibility = View.INVISIBLE
-//            startUpText2.visibility = View.INVISIBLE
             it?.let {
                 tasks.clear()
                 tasks.addAll(it)
-//                startUp(tasks, view)
-//                if (tasks.isNullOrEmpty()) {
-//                    startUpImg.visibility = View.VISIBLE
-//                    startUpText1.visibility = View.VISIBLE
-//                    startUpText2.visibility = View.VISIBLE
-//                } else {
-//                    startUpImg.visibility = View.GONE
-//                    startUpText1.visibility = View.GONE
-//                    startUpText2.visibility = View.GONE
-//                }
                 sectionData = todoViewModel.createSectionData(tasks)
+
                 // Notifications
                 // Filter the "Past" tasks and assign it to pastTasks variable
                 val pastTasks = DateFormat.isDueDateApproaching(tasks)
                 var counter = 0
+
                 // To go over the past due date and send a notifier for it
                 pastTasks.forEach { todoDataModel ->
-                    //TODO Change the message to user friendly one :)
-                        buildNotification(
-                            "To do List",
-                            "${todoDataModel.title} due date is approaching!",
-                            counter ++
-                        )
+                    buildNotification(
+                        "To do List",
+                        "${todoDataModel.title} due date is approaching",
+                        counter++
+                    )
                 }
 
-                // Setting our adapter
+                // Setting our adapter for the parent recycler view
                 binding.mainRecyclerView.apply {
                     adapter = ParentAdapter(sectionData, todoViewModel)
                 }
             }
         })
-
 
         // Add task button event
         addFloatButton.setOnClickListener {
@@ -120,16 +102,12 @@ class TodoListFragment : Fragment() {
         completedTasksRecyclerView.adapter = completedTasksAdapter
 
         todoViewModel.getAllCompletedTasks.observe(viewLifecycleOwner, {
-//            startUpImg.visibility = View.INVISIBLE
-//            startUpText1.visibility = View.INVISIBLE
-//            startUpText2.visibility = View.INVISIBLE
             it?.let {
                 completedTasks.clear()
                 completedTasks.addAll(it)
                 completedTasksAdapter.notifyDataSetChanged()
-//                startUp(completedTasks, view)
-                // Show the number of completed tasks & the divider if there was completed tasks
-                if(completedTasks.size > 0) {
+
+                if (completedTasks.size > 0) {
                     completedTextView.text = getString(R.string.completed_text, completedTasks.size)
                     divider.visibility = View.VISIBLE
                     completedTextView.visibility = View.VISIBLE
@@ -144,27 +122,6 @@ class TodoListFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-    }
-    // Change the start up images & text visibility
-    fun startUp(tasks: List<TodoDataModel>, view: View) {
-        // Get the IDs for the start up image and textViews
-        val startUpImg: ImageView = view.findViewById(R.id.start_imageView)
-        val startUpText1: TextView = view.findViewById(R.id.textView)
-        val startUpText2: TextView = view.findViewById(R.id.textView2)
-
-        startUpImg.visibility = View.INVISIBLE
-        startUpText1.visibility = View.INVISIBLE
-        startUpText2.visibility = View.INVISIBLE
-        // Change the visibility of start up based on the tasks number
-        if (tasks.isNullOrEmpty()) {
-            startUpImg.visibility = View.VISIBLE
-            startUpText1.visibility = View.VISIBLE
-            startUpText2.visibility = View.VISIBLE
-        } else {
-            startUpImg.visibility = View.GONE
-            startUpText1.visibility = View.GONE
-            startUpText2.visibility = View.GONE
-        }
     }
 
     // Setting notification functions
