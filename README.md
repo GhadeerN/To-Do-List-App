@@ -125,3 +125,12 @@ Material design dependency:
     // ...
   }
 ```
+
+Add this line to activate data binding:
+
+```groovy
+  buildFeatures {
+        //...
+        dataBinding true
+  }
+```    
