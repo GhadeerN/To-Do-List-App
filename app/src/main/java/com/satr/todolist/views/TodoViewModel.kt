@@ -100,6 +100,7 @@ fun setTaskStatus(dueDate: String): String {
     // Resource: https://www.ictdemy.com/kotlin/oop/date-and-time-in-kotlin-parsing-and-comparing
     val localDate = LocalDate.parse(currentDate, DateTimeFormatter.ofPattern("E, MMM d, y"))
     val dueDateLocal = LocalDate.parse(dueDate, DateTimeFormatter.ofPattern("E, MMM d, y"))
+
     return when {
         dueDateLocal.isEqual(localDate) -> {
             "Today"

@@ -37,7 +37,7 @@ class ParentAdapter(val list: List<SectionDataModel>, val viewModel: TodoViewMod
 
         sectionTextView.text = list[position].section
         when (section.section) {
-            "Overdue" -> sectionTextView.setTextColor(Color.RED)
+            "Overdue" -> sectionTextView.setTextColor(Color.parseColor("#ED847E"))
             "Today" -> sectionTextView.setTextColor(R.color.primary_color)
             "Upcoming Tasks" -> sectionTextView.setTextColor(R.color.main_primary_color)
         }
