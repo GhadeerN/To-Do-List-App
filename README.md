@@ -9,7 +9,7 @@
 - [User Sories](#user-sories-👥)
 - [Wireframe](#wireframe-📱)
 - [Planning and Development](#planning-and-development-🚀)
-- [Favorite Part of My Work](#favorite-functions-work-💕)
+- [Favorite Functions Work](#favorite-functions-work-💕)
 - [Final App](#final-app-🎉)
 
 
@@ -125,3 +125,12 @@ Material design dependency:
     // ...
   }
 ```
+
+Add this line to activate data binding:
+
+```groovy
+  buildFeatures {
+        //...
+        dataBinding true
+  }
+```    
