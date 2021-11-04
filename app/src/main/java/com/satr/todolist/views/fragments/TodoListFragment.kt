@@ -75,8 +75,8 @@ class TodoListFragment : Fragment() {
                 // To go over the past due date and send a notifier for it
                 pastTasks.forEach { todoDataModel ->
                     buildNotification(
-                        "To do List",
-                        "${todoDataModel.title} due date is approaching",
+                        todoDataModel.title,
+                        "Due date is approaching",
                         counter++
                     )
                 }
@@ -128,7 +128,7 @@ class TodoListFragment : Fragment() {
     fun buildNotification(title: String, contentText: String, notificationId: Int) {
         createNotificationChannel()
         var builder = NotificationCompat.Builder(requireContext(), CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_calendar)
+            .setSmallIcon(R.drawable.ic_launcher)
             .setContentTitle(title)
             .setContentText(contentText)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
