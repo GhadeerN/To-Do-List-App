@@ -90,10 +90,10 @@ class ModalSheetBottomFragment : BottomSheetDialogFragment() {
 
         addButton.setOnClickListener {
             val title = titleEditText.text.toString()
-            if(title.isNotEmpty()) {
+            if(title.isNotEmpty() && title.isNotBlank()) {
                 val details = detailsEditText.text.toString()
                 val dueDate = dateEditText.text.toString()
-                todoViewModel.addTask(title, false, details, dueDate)
+                todoViewModel.addTask(title.trim(), false, details, dueDate)
                 dismiss()
             } else
                 Toast.makeText(requireContext(), "Please write your new task to add it", Toast.LENGTH_SHORT).show()
