@@ -62,9 +62,9 @@ This project is part of my training at Tuwaiq Bootcamp and has the following goa
 
 ## Wireframe 📱
 
-For the wireframe I used Figma, you can preview my work [here](https://www.figma.com/file/AYhjXaodVIYAIjvc2faNkX/To-Do-List-App---Capstone-1)
+For the wireframe I used Figma, you can preview my work [here!](https://www.figma.com/file/AYhjXaodVIYAIjvc2faNkX/To-Do-List-App---Capstone-1)
 
-Here is part of my design frams: 
+Here is part of my frames design:
 
 ![Wireframe](https://e.top4top.io/p_2133wizmf1.png)
 
